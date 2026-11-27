@@ -5,7 +5,7 @@
   'use strict';
 
   // >>> Cambia aquí el número de WhatsApp (código de país + número, sin espacios)
-  const WHATSAPP = '50223198296';
+  const WHATSAPP = '50258285623';
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];

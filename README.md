@@ -15,10 +15,10 @@ sitemap.xml         Mapa del sitio para Google
 ```
 
 ## Antes de publicar — revisar
-1. **WhatsApp:** el número está en `js/main.js` (constante `WHATSAPP`) y en los enlaces `wa.me/50223198296` de `index.html`. Si el WhatsApp es otro número, reemplázalo en ambos (buscar `50223198296`).
+1. **WhatsApp:** WhatsApp 5828-5623: está en `js/main.js` (constante `WHATSAPP`) y en los enlaces `wa.me/50258285623` de `index.html`.
 2. **Dominio:** se usó `https://www.plenitudfinanciera.com/` como ejemplo. Reemplázalo en `index.html` (canonical, og, JSON-LD), `robots.txt` y `sitemap.xml`.
 3. **Imágenes:** `img/quienes-somos.webp` y `img/asesora.webp` salieron de capturas de pantalla; reemplázalas por los originales en alta (mismo nombre, formato WebP de ~1200 px de ancho, calidad 80).
-   `img/hero.webp` es un fondo azul generado; si quieres la foto de la laptop, guárdala como `img/hero.webp` (1920×1080).
+   El hero ya no usa foto: fondo blanco con el logo a color.
 4. **Calculadora:** es referencial. Ajusta los rangos de monto/plazo/tasa en `index.html` (atributos `min`, `max`, `value`) o elimina la sección `#calculadora` si no la quieren.
 
 ## Convertir imágenes a WebP
