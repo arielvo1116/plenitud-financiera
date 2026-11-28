@@ -29,6 +29,7 @@
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
@@ -82,9 +83,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .header__logo { display: flex; align-items: center; gap: .6rem; }
 .header__logo img { height: 52px; width: auto; transition: height .35s var(--ease); }
 .header.is-scrolled .header__logo img { height: 44px; }
-.header__brand { font-weight: 800; font-size: 1.3rem; letter-spacing: -.01em; line-height: 1; white-space: nowrap; }
-.b-blue { color: var(--blue); }
-.b-green { color: var(--green); }
+.header__brand { font-weight: 800; font-size: 1.3rem; letter-spacing: -.01em; line-height: 1; white-space: nowrap; color: var(--blue); }
 
 .nav { display: flex; align-items: center; gap: 2rem; }
 .nav__list { display: flex; gap: 2.2rem; }
@@ -304,6 +303,42 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .contact__map iframe { width: 100%; height: 100%; border: 0; }
 .contact__form { background: #fff; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border-top: 5px solid var(--green); }
 .contact__form h3 { font-size: 1.4rem; margin-bottom: 1.2rem; }
+
+/* ---------- Reseñas ---------- */
+.reviews { background: #fff; }
+.reviews__summary { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: -1.5rem auto 2.5rem; }
+.reviews__summary > strong { font-size: 3rem; line-height: 1; color: var(--blue); }
+.reviews__summary small { display: block; color: var(--muted); font-size: .85rem; }
+.stars { color: var(--orange); letter-spacing: .1em; font-size: 1.15rem; }
+.stars .off { color: var(--gray-200); }
+.reviews__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(290px, calc((100% - 3rem) / 3)); gap: 1.5rem;
+  overflow-x: auto; scroll-snap-type: x mandatory; padding: .5rem .25rem 1.5rem; scrollbar-width: thin;
+}
+.reviews__track:empty { display: none; }
+.review {
+  scroll-snap-align: start; background: var(--gray-50); border-radius: var(--radius-lg); padding: 1.8rem; border: 1px solid var(--gray-100);
+  display: flex; flex-direction: column; gap: .8rem; transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.review:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+.review p { color: var(--text); margin: 0; flex: 1; font-size: .95rem; }
+.review footer { display: flex; align-items: center; gap: .75rem; }
+.review__avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font-weight: 800; flex: none; }
+.review footer strong { display: block; color: var(--blue); font-size: .95rem; line-height: 1.3; }
+.review footer small { color: var(--muted); font-size: .8rem; }
+.reviews__empty { text-align: center; color: var(--muted); margin-bottom: 2.5rem; }
+.review-form { max-width: 680px; margin: 1rem auto 0; background: #fff; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border-top: 5px solid var(--blue); }
+.review-form h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+.review-form__note { text-align: center; color: var(--muted); font-size: .8rem; margin: .3rem 0 0; }
+.field__label { display: block; font-weight: 600; font-size: .88rem; margin-bottom: .4rem; }
+.rating { display: inline-flex; flex-direction: row-reverse; gap: .2rem; }
+.rating input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.rating label { font-size: 2.1rem; line-height: 1; color: var(--gray-200); cursor: pointer; transition: color .2s, transform .2s var(--ease); }
+.rating label:hover, .rating label:hover ~ label, .rating input:checked ~ label { color: var(--orange); }
+.rating label:hover { transform: scale(1.15); }
+.rating input:focus-visible + label { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 4px; }
+.rating.is-invalid label { color: #f2b8b8; }
+@media (max-width: 900px) { .reviews__track { grid-auto-columns: minmax(270px, 80%); } }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--blue); color: rgba(255, 255, 255, .9); font-size: .92rem; }

@@ -129,6 +129,65 @@
   });
   $$('input, select', form).forEach(el => el.addEventListener('input', () => el.closest('.field').classList.remove('is-invalid')));
 
+  /* ---------- Reseñas: mostrar las publicadas ---------- */
+  const reviews = Array.isArray(window.RESENAS) ? window.RESENAS.filter(r => r && r.nombre && r.comentario) : [];
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const starsHtml = n => { const k = Math.round(n); return '★'.repeat(k) + `<span class="off">${'★'.repeat(5 - k)}</span>`; };
+  if (reviews.length) {
+    $('#reviewsList').innerHTML = reviews.map(r => {
+      const n = Math.min(5, Math.max(1, +r.estrellas || 5));
+      const fecha = r.fecha ? new Date(r.fecha + 'T12:00:00').toLocaleDateString('es-GT', { month: 'long', year: 'numeric' }) : '';
+      const meta = [r.servicio, fecha].filter(Boolean).map(esc).join(' · ');
+      return `<article class="review">
+        <span class="stars" aria-label="${n} de 5 estrellas">${starsHtml(n)}</span>
+        <p>“${esc(r.comentario)}”</p>
+        <footer><span class="review__avatar" aria-hidden="true">${esc(r.nombre.trim().charAt(0).toUpperCase())}</span>
+        <div><strong>${esc(r.nombre)}</strong>${meta ? `<small>${meta}</small>` : ''}</div></footer>
+      </article>`;
+    }).join('');
+    const avg = reviews.reduce((s, r) => s + Math.min(5, Math.max(1, +r.estrellas || 5)), 0) / reviews.length;
+    $('#reviewsAvg').textContent = avg.toFixed(1);
+    $('#reviewsAvgStars').innerHTML = starsHtml(avg);
+    $('#reviewsAvgStars').setAttribute('aria-label', `Promedio ${avg.toFixed(1)} de 5`);
+    $('#reviewsCount').textContent = reviews.length === 1 ? '1 reseña' : `${reviews.length} reseñas`;
+    $('#reviewsSummary').hidden = false;
+    $('#reviewsEmpty').hidden = true;
+  }
+
+  /* ---------- Reseñas: enviar nueva (llega por WhatsApp para aprobarla) ---------- */
+  const rForm = $('#reviewForm');
+  const rMsg = $('#reviewMsg');
+  rForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const stars = rForm.querySelector('input[name="estrellas"]:checked');
+    const nameOk = $('#rName').value.trim() !== '';
+    const textOk = $('#rText').value.trim() !== '';
+    $('.rating', rForm).classList.toggle('is-invalid', !stars);
+    $('#rName').closest('.field').classList.toggle('is-invalid', !nameOk);
+    $('#rText').closest('.field').classList.toggle('is-invalid', !textOk);
+    if (!stars || !nameOk || !textOk) {
+      rMsg.textContent = 'Por favor elige las estrellas, tu nombre y tu experiencia.';
+      rMsg.className = 'form__msg is-error';
+      return;
+    }
+    const d = Object.fromEntries(new FormData(rForm));
+    const text = [
+      '⭐ *Nueva reseña para la página web*',
+      `*Calificación:* ${'★'.repeat(+d.estrellas)}${'☆'.repeat(5 - d.estrellas)} (${d.estrellas}/5)`,
+      `*Nombre:* ${d.nombre}`,
+      d.servicio ? `*Servicio:* ${d.servicio}` : '',
+      `*Reseña:* ${d.comentario}`
+    ].filter(Boolean).join('\n');
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    rMsg.textContent = '¡Gracias por tu reseña! La publicaremos después de revisarla.';
+    rMsg.className = 'form__msg is-ok';
+    rForm.reset();
+  });
+  $$('input, textarea', rForm).forEach(el => el.addEventListener('input', () => {
+    el.closest('.field')?.classList.remove('is-invalid');
+    if (el.name === 'estrellas') $('.rating', rForm).classList.remove('is-invalid');
+  }));
+
   /* ---------- Tooltip del botón flotante (una vez) ---------- */
   const fab = $('.fab-wa');
   setTimeout(() => { fab.classList.add('show-tip'); setTimeout(() => fab.classList.remove('show-tip'), 4000); }, 3500);

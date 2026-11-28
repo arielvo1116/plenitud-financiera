@@ -65,13 +65,14 @@
     <div class="container header__inner">
       <a href="#inicio" class="header__logo" aria-label="Plenitud Fin, S.A., ir al inicio">
         <img src="img/logo-icon.webp" alt="" width="52" height="52">
-        <span class="header__brand"><span class="b-blue">Plenitud</span> <span class="b-green">Fin, S.A.</span></span>
+        <span class="header__brand">Plenitud Fin, S.A.</span>
       </a>
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
           <li><a href="#inicio" class="nav__link is-active">Inicio</a></li>
           <li><a href="#quienes-somos" class="nav__link">Quiénes somos</a></li>
           <li><a href="#servicios" class="nav__link">Servicios</a></li>
+          <li><a href="#resenas" class="nav__link">Reseñas</a></li>
           <li><a href="#contacto" class="nav__link">Contacto</a></li>
         </ul>
         <a href="#contacto" class="btn btn--green nav__cta">Solicitar asesoría</a>
@@ -277,6 +278,65 @@
       </div>
     </section>
 
+    <!-- ===== RESEÑAS ===== -->
+    <section class="section reviews" id="resenas">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Reseñas</span>
+          <h2 class="section__title">Lo que dicen nuestros clientes</h2>
+          <p>Tu opinión nos ayuda a mejorar y a que más personas nos conozcan.</p>
+        </header>
+
+        <div class="reviews__summary reveal" id="reviewsSummary" hidden>
+          <strong id="reviewsAvg">0.0</strong>
+          <div><span class="stars" id="reviewsAvgStars"></span><small id="reviewsCount"></small></div>
+        </div>
+
+        <div class="reviews__track" id="reviewsList" aria-live="polite"></div>
+        <p class="reviews__empty reveal" id="reviewsEmpty">Aún no hay reseñas publicadas. ¡Sé el primero en contarnos tu experiencia!</p>
+
+        <form class="review-form reveal" id="reviewForm" novalidate>
+          <h3>Deja tu reseña</h3>
+          <div class="field">
+            <span class="field__label" id="ratingLabel">Calificación</span>
+            <div class="rating" role="radiogroup" aria-labelledby="ratingLabel">
+              <input type="radio" id="r5" name="estrellas" value="5"><label for="r5" title="Excelente">★</label>
+              <input type="radio" id="r4" name="estrellas" value="4"><label for="r4" title="Muy bueno">★</label>
+              <input type="radio" id="r3" name="estrellas" value="3"><label for="r3" title="Bueno">★</label>
+              <input type="radio" id="r2" name="estrellas" value="2"><label for="r2" title="Regular">★</label>
+              <input type="radio" id="r1" name="estrellas" value="1"><label for="r1" title="Malo">★</label>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="rName">Nombre</label>
+              <input type="text" id="rName" name="nombre" autocomplete="name" required placeholder="Tu nombre">
+            </div>
+            <div class="field">
+              <label for="rService">Servicio <small>(opcional)</small></label>
+              <select id="rService" name="servicio">
+                <option value="">Selecciona</option>
+                <option>Préstamo personal</option>
+                <option>Préstamo empresarial</option>
+                <option>Consolidación de deudas</option>
+                <option>Vivienda / hipotecario</option>
+                <option>Vehículo / prendario</option>
+                <option>Tarjeta de crédito</option>
+                <option>Asesoría general</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rText">Tu experiencia</label>
+            <textarea id="rText" name="comentario" rows="3" required maxlength="400" placeholder="Cuéntanos cómo te fue con Plenitud Financiera"></textarea>
+          </div>
+          <button type="submit" class="btn btn--green btn--block">Enviar reseña</button>
+          <p class="form__msg" id="reviewMsg" role="status" aria-live="polite"></p>
+          <p class="review-form__note">Las reseñas se revisan antes de publicarse.</p>
+        </form>
+      </div>
+    </section>
+
     <!-- ===== CONTACTO ===== -->
     <section class="section contact" id="contacto">
       <div class="container contact__grid">
@@ -357,6 +417,7 @@
           <li><a href="#quienes-somos">Quiénes somos</a></li>
           <li><a href="#servicios">Servicios</a></li>
           <li><a href="#calculadora">Calculadora</a></li>
+          <li><a href="#resenas">Reseñas</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
@@ -393,6 +454,7 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8l-6 6 1.4 1.4L12 10.8l4.6 4.6L18 14z"/></svg>
   </button>
 
+  <script src="js/resenas.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

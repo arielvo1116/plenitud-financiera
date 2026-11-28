@@ -24,3 +24,11 @@ sitemap.xml         Mapa del sitio para Google
 ## Convertir imágenes a WebP
 - Online: https://squoosh.app
 - Terminal: `cwebp -q 80 foto.jpg -o foto.webp`
+
+## Reseñas de clientes
+Como el sitio es estático (sin servidor ni base de datos), las reseñas funcionan así:
+1. El cliente llena "Deja tu reseña" (estrellas, nombre, servicio y comentario) y se le abre WhatsApp con el mensaje ya armado hacia el 5828-5623.
+2. Ustedes la leen y, si la aprueban, la copian en `js/resenas.js` siguiendo el ejemplo que viene comentado dentro del archivo.
+3. Al subir ese archivo al hosting, la reseña aparece en la página con su promedio de estrellas.
+
+Si no hay ninguna reseña en `js/resenas.js`, la página muestra "Aún no hay reseñas publicadas".
